@@ -1,7 +1,7 @@
 require './lib/calibration'
 
 RSpec.describe Calibration do
-  let(:file) { 'spec/fixtures/calibration.txt' }
+  let(:file) { '../fixtures/calibration.txt' }
   let(:calibration) { Calibration.new(file) }
 
   it 'exists' do
