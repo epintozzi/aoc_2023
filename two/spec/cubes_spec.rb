@@ -47,4 +47,39 @@ RSpec.describe Cubes do
       expect(cubes.valid_game_id_sum).to eq(8)
     end
   end
+
+  describe '#find_min_cubes' do
+    it 'returns min possible number of each cube color' do
+      result = {
+        1 => {"blue" => 6, "red" => 4, "green" => 2},
+        2 => {"blue" => 4, "red" => 1, "green" => 3},
+        3 => {"blue" => 6, "red" => 20, "green" => 13},
+        4 => {"blue" => 15, "red" => 14, "green" => 3},
+        5 => {"blue" => 2, "red" => 6, "green" => 3}
+      }
+      expect(cubes.find_min_cubes).to eq(result)
+    end
+  
+  end
+
+  describe '#power_min_cubes' do
+    it 'calculates the power for each game' do
+      min_cubes = {
+        1 => {"blue" => 6, "red" => 4, "green" => 2},
+        2 => {"blue" => 4, "red" => 1, "green" => 3},
+        3 => {"blue" => 6, "red" => 20, "green" => 13},
+        4 => {"blue" => 15, "red" => 14, "green" => 3},
+        5 => {"blue" => 2, "red" => 6, "green" => 3}
+      }
+      allow(cubes).to receive(:find_min_cubes).and_return(min_cubes)
+      expect(cubes.power_min_cubes).to eq([48, 12, 1560, 630, 36])
+    end
+  end
+
+  describe '#sum_powers' do
+    it 'sums the powers of all games' do
+      allow(cubes).to receive(:power_min_cubes).and_return([48, 12, 1560, 630, 36])
+      expect(cubes.sum_powers).to eq(2286)
+    end
+  end
 end

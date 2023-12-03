@@ -48,6 +48,30 @@ class Cubes
     find_valid_games.sum
   end
 
+  def find_min_cubes
+    min_cubes = {}
+    parse_game_data.each do |id, game_data|
+      counter = { "blue" => 0, "red" => 0, "green" => 0 }
+      game_data.each do |round|
+        round.each do |color, count|
+          counter[color] = count if counter[color] <= count
+        end
+        min_cubes[id] = counter
+      end
+    end
+    min_cubes
+  end
+
+  def power_min_cubes #array of powers
+    find_min_cubes.map do |_k, v|
+      v.values.inject(:*)
+    end
+  end
+
+  def sum_powers
+    power_min_cubes.sum
+  end
+
   def constraints
     {
       "red" => 12,
